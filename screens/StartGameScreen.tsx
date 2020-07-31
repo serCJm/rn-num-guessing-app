@@ -6,18 +6,65 @@ import {
 	Button,
 	Keyboard,
 	TouchableWithoutFeedback,
+	Alert,
 } from "react-native";
 import Card from "../components/Card";
 import { Colors } from "../Constants/colors";
 import Input from "../components/Input";
+import NumbersContainer from "../components/NumbersContainer";
 
 type Props = {};
 
 const StartGameScreen: React.FC<Props> = () => {
 	const [enteredValue, setEnteredValue] = useState("");
+	const [confirmed, setConfirmed] = useState(false);
+	const [selectedNumber, setSelectedNumber] = useState<number>();
 
 	function numberInputHandler(e: string) {
 		setEnteredValue(e.replace(/[^0-9]/g, ""));
+	}
+
+	function resetInputHandler() {
+		setEnteredValue("");
+		setConfirmed(false);
+	}
+
+	function confirmInputHandler() {
+		const chosenNumber = parseInt(enteredValue);
+		if (
+			Number.isNaN(chosenNumber) ||
+			chosenNumber <= 0 ||
+			chosenNumber > 99
+		) {
+			Alert.alert(
+				"Invalid Number!",
+				"Number has to be between 1 and 99. ",
+				[
+					{
+						text: "Okay",
+						style: "destructive",
+						onPress: resetInputHandler,
+					},
+				]
+			);
+			return;
+		}
+		setConfirmed(true);
+		setSelectedNumber(chosenNumber);
+		setEnteredValue("");
+		Keyboard.dismiss();
+	}
+
+	let confirmedOutput;
+
+	if (confirmed) {
+		confirmedOutput = (
+			<Card style={styles.summaryContainer}>
+				<Text>Chosen Number: </Text>
+				<NumbersContainer>{selectedNumber}</NumbersContainer>
+				<Button title="Start Game"></Button>
+			</Card>
+		);
 	}
 
 	return (
@@ -40,18 +87,19 @@ const StartGameScreen: React.FC<Props> = () => {
 							<Button
 								title="Reset"
 								color={Colors.accent}
-								onPress={() => {}}
+								onPress={resetInputHandler}
 							></Button>
 						</View>
 						<View style={styles.button}>
 							<Button
 								title="Confirm"
 								color={Colors.primary}
-								onPress={() => {}}
+								onPress={confirmInputHandler}
 							></Button>
 						</View>
 					</View>
 				</Card>
+				{confirmedOutput}
 			</View>
 		</TouchableWithoutFeedback>
 	);
@@ -82,5 +130,9 @@ const styles = StyleSheet.create({
 	input: {
 		width: 50,
 		textAlign: "center",
+	},
+	summaryContainer: {
+		marginTop: 20,
+		alignItems: "center",
 	},
 });
