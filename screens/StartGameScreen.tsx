@@ -13,9 +13,11 @@ import { Colors } from "../Constants/colors";
 import Input from "../components/Input";
 import NumbersContainer from "../components/NumbersContainer";
 
-type Props = {};
+type Props = {
+	onStartGame: (a: number | undefined) => void;
+};
 
-const StartGameScreen: React.FC<Props> = () => {
+const StartGameScreen: React.FC<Props> = ({ onStartGame }) => {
 	const [enteredValue, setEnteredValue] = useState("");
 	const [confirmed, setConfirmed] = useState(false);
 	const [selectedNumber, setSelectedNumber] = useState<number>();
@@ -62,7 +64,10 @@ const StartGameScreen: React.FC<Props> = () => {
 			<Card style={styles.summaryContainer}>
 				<Text>Chosen Number: </Text>
 				<NumbersContainer>{selectedNumber}</NumbersContainer>
-				<Button title="Start Game"></Button>
+				<Button
+					title="Start Game"
+					onPress={() => onStartGame(selectedNumber)}
+				></Button>
 			</Card>
 		);
 	}
