@@ -12,6 +12,7 @@ import Card from "../components/Card";
 import { Colors } from "../Constants/colors";
 import Input from "../components/Input";
 import NumbersContainer from "../components/NumbersContainer";
+import BodyText from "../components/BodyText";
 
 type Props = {
 	onStartGame: (a: number | undefined) => void;
@@ -77,7 +78,7 @@ const StartGameScreen: React.FC<Props> = ({ onStartGame }) => {
 			<View style={styles.screen}>
 				<Text style={styles.title}>Start A New Game!</Text>
 				<Card style={styles.inputContainer}>
-					<Text>Select A Number</Text>
+					<BodyText>Select A Number</BodyText>
 					<Input
 						style={styles.input}
 						blurOnSubmit
