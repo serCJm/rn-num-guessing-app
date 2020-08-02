@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, View, Button, Image } from "react-native";
+import BodyText from "../components/BodyText";
 
 interface Props {
 	roundsNumber: number;
@@ -14,9 +15,16 @@ const GameOverScreen: React.FC<Props> = ({
 }) => {
 	return (
 		<View style={styles.screen}>
-			<Text>The Game Is Over</Text>
-			<Text>Number of rounds: {roundsNumber}</Text>
-			<Text>Number was: {userNumber}</Text>
+			<BodyText>Number of rounds: {roundsNumber}</BodyText>
+			<View style={styles.imageContainer}>
+				<Image
+					source={require("../assets/success.png")}
+					style={styles.image}
+					resizeMode="contain"
+				></Image>
+			</View>
+			<BodyText>Number was: {userNumber}</BodyText>
+			<BodyText>The Game Is Over</BodyText>
 			<Button title="New Game" onPress={onRestart}></Button>
 		</View>
 	);
@@ -29,5 +37,18 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
+	},
+	imageContainer: {
+		width: 300,
+		height: 300,
+		borderRadius: 150,
+		borderWidth: 3,
+		borderColor: "black",
+		overflow: "hidden",
+		marginVertical: 30,
+	},
+	image: {
+		width: "100%",
+		height: "100%",
 	},
 });
