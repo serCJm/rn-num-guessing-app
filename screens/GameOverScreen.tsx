@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Button, Image } from "react-native";
+import { StyleSheet, View, Button, Image, Text } from "react-native";
 import BodyText from "../components/BodyText";
+import { Colors } from "../Constants/colors";
 
 interface Props {
 	roundsNumber: number;
@@ -23,8 +24,11 @@ const GameOverScreen: React.FC<Props> = ({
 					resizeMode="contain"
 				></Image>
 			</View>
-			<BodyText>Number was: {userNumber}</BodyText>
-			<BodyText>The Game Is Over</BodyText>
+			<BodyText>
+				Your phone guessed{" "}
+				<Text style={styles.highlight}>{userNumber}</Text> in{" "}
+				{roundsNumber}
+			</BodyText>
 			<Button title="New Game" onPress={onRestart}></Button>
 		</View>
 	);
@@ -50,5 +54,8 @@ const styles = StyleSheet.create({
 	image: {
 		width: "100%",
 		height: "100%",
+	},
+	highlight: {
+		color: Colors.primary,
 	},
 });
