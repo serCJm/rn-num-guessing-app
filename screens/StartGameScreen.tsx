@@ -13,6 +13,7 @@ import { Colors } from "../Constants/colors";
 import Input from "../components/Input";
 import NumbersContainer from "../components/NumbersContainer";
 import BodyText from "../components/BodyText";
+import MainButton from "../components/MainButton";
 
 type Props = {
 	onStartGame: (a: number | undefined) => void;
@@ -65,10 +66,9 @@ const StartGameScreen: React.FC<Props> = ({ onStartGame }) => {
 			<Card style={styles.summaryContainer}>
 				<Text>Chosen Number: </Text>
 				<NumbersContainer>{selectedNumber}</NumbersContainer>
-				<Button
-					title="Start Game"
-					onPress={() => onStartGame(selectedNumber)}
-				></Button>
+				<MainButton onPress={() => onStartGame(selectedNumber)}>
+					Start Game
+				</MainButton>
 			</Card>
 		);
 	}

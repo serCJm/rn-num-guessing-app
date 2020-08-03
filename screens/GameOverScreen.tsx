@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Button, Image, Text } from "react-native";
 import BodyText from "../components/BodyText";
 import { Colors } from "../Constants/colors";
+import MainButton from "../components/MainButton";
 
 interface Props {
 	roundsNumber: number;
@@ -29,7 +30,7 @@ const GameOverScreen: React.FC<Props> = ({
 				<Text style={styles.highlight}>{userNumber}</Text> in{" "}
 				{roundsNumber}
 			</BodyText>
-			<Button title="New Game" onPress={onRestart}></Button>
+			<MainButton onPress={onRestart}>New Game</MainButton>
 		</View>
 	);
 };
