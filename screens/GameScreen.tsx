@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, View, Alert, ScrollView } from "react-native";
+import { StyleSheet, View, Alert, ScrollView, FlatList } from "react-native";
 import NumbersContainer from "../components/NumbersContainer";
 import Card from "../components/Card";
 import BodyText from "../components/BodyText";
@@ -78,14 +78,26 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameOver }) => {
 				</MainButton>
 			</Card>
 			<View style={styles.list}>
-				<ScrollView>
+				{/* <ScrollView>
 					{pastGuesses.map((guess, i) => (
 						<View key={guess} style={styles.listItem}>
 							<BodyText>#{pastGuesses.length - i}</BodyText>
 							<BodyText>{guess}</BodyText>
 						</View>
 					))}
-				</ScrollView>
+				</ScrollView> */}
+				<FlatList
+					keyExtractor={(item) => item.toString()}
+					data={pastGuesses}
+					renderItem={(itemData) => (
+						<View style={styles.listItem}>
+							<BodyText>
+								#{pastGuesses.length - itemData.index}
+							</BodyText>
+							<BodyText>{itemData.item}</BodyText>
+						</View>
+					)}
+				></FlatList>
 			</View>
 		</View>
 	);
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		flex: 1,
-		width: "80%",
+		width: "60%",
 	},
 	listItem: {
 		borderColor: "#ccc",
@@ -118,5 +130,6 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		flexDirection: "row",
 		justifyContent: "space-between",
+		width: "100%",
 	},
 });
